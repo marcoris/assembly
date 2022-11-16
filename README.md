@@ -1,4 +1,4 @@
-# ASM cc65
+# ASM cc65 for NES dev
 ## Constants and labels
 When the assembler (ca65) is run, it will replace the name of the constant (e.g. PPUSTATUS) with its value (e.g. $2002).
 You can make a constant by using the equal sign: PPUSTATUS = $2002.
