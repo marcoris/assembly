@@ -5,6 +5,7 @@ games from [famicom.party](https://famicom.party/).
 # Table of Contents
 1. [Constants and labels](#constants-and-labels)
 2. [Header interrupt vectors](header_interruptvectors.md)
+2. [Refactoring](refactoring.md)
 
 ## Constants and labels
 When the assembler (ca65) is run, it will replace the name of the constant (e.g. PPUSTATUS) with its value (e.g. $2002).
