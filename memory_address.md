@@ -1,4 +1,4 @@
-[< Back](.)
+[< Back](README.md)
 
 ## Memory address
 The processor looks to the last **six** bytes of memory - addresses `$fffa` to `$ffff` - to find the memory address of where each
