@@ -1,4 +1,10 @@
 # ASM cc65 for NES dev
+This repo is just a collection of information about assembly with the cc65 for the 6502 MC expected for developing NES games.
+
+# Table of Contents
+1. [Constants and labels](#constants-and-labels)
+2. [Memory](memory_address.md)
+
 ## Constants and labels
 When the assembler (ca65) is run, it will replace the name of the constant (e.g. PPUSTATUS) with its value (e.g. $2002).
 You can make a constant by using the equal sign: PPUSTATUS = $2002.
@@ -11,7 +17,10 @@ You can add comments to your assembly code using the semicolon (;) character.
 
 ## Assembler directives
 Finally, assembly code gives us directives - instructions for the assembler that affect the conversion from assembly to
-machine code, rather than instructions for the processor where the machine code will be executed. Directives start with a period (.). The example code uses the .proc directive on line 1 to indicate a new lexical scope (more on that later). Another common directive is .byte, which indicates that the following bytes should be copied raw into the machine code output rather than trying to process them as opcodes or operands.
+machine code, rather than instructions for the processor where the machine code will be executed. Directives start with
+a period (.). The example code uses the .proc directive on line 1 to indicate a new lexical scope (more on that later).
+Another common directive is .byte, which indicates that the following bytes should be copied raw into the machine code 
+output rather than trying to process them as opcodes or operands.
 
 ## Data Movement
 ### Loading data: LDA, LDX, LDY
@@ -19,11 +28,11 @@ The "LD" commands load data into a register. As a reminder, the 6502 has three r
 which can do math, and "X" and "Y", the "index registers". LDA loads data into the accumulator, LDX loads data into the X
 register, and LDY loads data into the Y register.
 
-```asm
+````asm
 LDA $3f00   ; load contents of memory address $3f00
             ; into the accumulator
 LDA #$3f    ; load the value $3f into the accumulator
-```
+````
 
 ### Storing data: STA, STX, STY
 The "ST" opcodes do the reverse of the "LD" opcodes - they store the contents of a register to a memory address. STA
@@ -38,16 +47,17 @@ register to register" - TAX, for example, is "transfer from accumulator to X reg
 is more accurately described as a "copy", since after one of these instructions, both registers will have the value of the
 first register.
 
-```asm
+````asm
 LDA #$a7
 TAY
 STY $3f00
-```
+````
 
 ## Memory-Mapped I/O
 On the NES, addresses in the $2000-$6000 range are reserved for use as memory-mapped I/O (or "MMIO") addresses. "I/O" is
 "input/output" - sending data between different devices. "Memory-mapped" means that these interfaces to other devices are
-mapped to memory addresses - in other words, certain memory addresses are not memory at all, but rather connections to other devices.
+mapped to memory addresses - in other words, certain memory addresses are not memory at all, but rather connections to 
+other devices.
 
 Memory addresses in the low $2000s correspond to connections to the PPU. There are four MMIO addresses in use in our code;
 let's take a look at what each one does (along with the name each address is commonly known by).
@@ -58,22 +68,22 @@ $2006 lets your code select an address in PPU memory, and $2007 lets your code w
 the address you want to write to, store two bytes of data to $2006 - first the "high" (left) byte, followed by the "low" 
 (right) byte.
 
-```asm
+````asm
 LDX #$3f
 STX $2006
 LDX #$00
 STX $2006
-```
+````
 
 This code first stores the byte $3f to $2006, then the byte $00 to $2006 - in other words, it sets the address for any 
 following writes to PPU memory to $3f00, which is the address of the first color of the first palette.
 
 To store data at the selected PPU memory address, store a byte to $2007:
 
-```asm
+````asm
 LDA #$29
 STA $2007
-```
+````
 
 This writes the byte $29 (which represents "green") to the memory address we selected before ($3f00). Each time you store
 a byte to PPUDATA, the memory address for the next store is incremented by one. If the next lines of code in the program
@@ -87,7 +97,7 @@ PPUADDR. It takes two writes to PPUADDR to fully specify a memory address, and i
 one write but never get around to doing the second write. Reading from PPUSTATUS makes it so that the next write to PPUADDR 
 will always be considered a "high" byte of an address.
 
-```asm
+````asm
 LDX $2002
 LDX #$3f
 STX $2006
@@ -95,7 +105,7 @@ LDX #$00
 STX $2006
 LDA #$29
 STA $2007
-```
+````
 
 ## $2001: PPUMASK
 There's still one more thing our test project has to do after it tells the PPU to use color $29 as the first color of the 
@@ -121,10 +131,10 @@ allow your code to "emphasize" certain colors - making one of red, green, or blu
 colors darker. Using one of the emphasis bits essentially applies a color tint to the screen. Using all three at the 
 same time makes the entire screen darker, which many games use as a way to create a transition from one area to another.
 
-```asm
+````asm
 LDA #%00011110
 STA $2001
-```
+````
 
 Here is what options we are setting, bit-by-bit:
 
