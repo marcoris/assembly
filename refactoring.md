@@ -1,6 +1,6 @@
 [< Back](README.md)
 
-## Constants
+## Refactoring Constants and Files
 There are several places in our code where we use a particular number that doesn't change, such as MMIO addresses for
 talking with the PPU. It's hard to tell what these numbers are referring to when looking at the code.
 
