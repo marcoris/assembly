@@ -8,7 +8,7 @@ games from [famicom.party](https://famicom.party/).
 3. [Refactoring](refactoring.md)
 4. [The Picture Processing Unit (PPU)](ppu.md)
 5. [Sprite Graphics](spritegraphics.md)
-
+6. [Branching](branching.md)
 
 ## Constants and labels
 When the assembler (ca65) is run, it will replace the name of the constant (e.g. PPUSTATUS) with its value (e.g. $2002).
