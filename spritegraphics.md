@@ -252,3 +252,7 @@ vblankwait:       ; wait for another vblank before continuing
 At this point, our code will draw a single sprite (the top-left of the spaceship) to the screen, at X $80 and Y $70
 (near the middle of the screen). The sprite data that we wrote to CPU memory between $0200-$02ff will be copied to
 PPU memory once per frame by our NMI handler.
+
+While this works, our code is very inefficient. To draw all 64 
+sprites this way, we would need 128 lines of code. To make our sprite code more manageable, we will store the 
+sprite data separately from the code that writes it to memory, and use a loop to iterate over the data.
