@@ -24,24 +24,21 @@
     STX PPUADDR
     LDX #$00
     STX PPUADDR
-    LDA #$29
+load_palettes:
+    LDA palettes,x
     STA PPUDATA
-    LDA #$19
-    STA PPUDATA
-    LDA #$09
-    STA PPUDATA
-    LDA #$0f
-    STA PPUDATA
+    INX
+    CPX #$04
+    BNE load_palettes
 
     ; write sprite data
-    LDA #$70
-    STA $0200
-    LDA #$05
-    STA $0201
-    LDA #$00
-    STA $0202
-    LDA #$80
-    STA $0203
+    LDX #$00
+load_sprites:
+    LDA sprites,X
+    STA $0200,X
+    INX
+    CPX #$04
+    BNE load_sprites
 
 vblankwait:       ; wait for another vblank before continuing
     BIT PPUSTATUS
@@ -58,6 +55,13 @@ forever:
 
 .segment "VECTORS"
 .addr nmi_handler, reset_handler, irq_handler
+
+.segment "RODATA"
+palettes:
+.byte $29, $19, $09, $0f
+
+sprites:
+.byte $70, $05, $00, $80
 
 .segment "CHR"
 .incbin "graphics.chr"

@@ -12,5 +12,6 @@
 vblankwait:
     BIT PPUSTATUS
     BPL vblankwait
+
     JMP main
 .endproc
