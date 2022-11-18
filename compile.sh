@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-rm src/*.o helloworld.nes && \
-ca65 src/helloworld.asm && \
+rm src/*.o spritegraphics.nes && \
+ca65 src/sprites.asm && \
 ca65 src/reset.asm && \
-ld65 src/reset.o src/helloworld.o -C nes.cfg -o helloworld.nes
+ld65 src/reset.o src/sprites.o -C nes.cfg -o spritegraphics.nes

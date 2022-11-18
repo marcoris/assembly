@@ -7,6 +7,7 @@ games from [famicom.party](https://famicom.party/).
 2. [Header interrupt vectors](header_interruptvectors.md)
 3. [Refactoring](refactoring.md)
 4. [The Picture Processing Unit (PPU)](ppu.md)
+5. [Sprite Graphics](spritegraphics.md)
 
 
 ## Constants and labels
