@@ -1,4 +1,4 @@
-[< Back](README.md)
+[< Back](../README.md)
 
 ## Flow Control in Assembly
 With the exception of JMP, all of the assembly we have seen so far has been completely linear: the processor reads a 
@@ -15,7 +15,7 @@ not directly accessible to the programmer. Each time the processor performs an o
 to reflect the results of that operation. Each bit in the status register gives information about a particular aspect 
 of the last operation.
 
-![img_11.png](img_11.png)
+![img_11.png](../assets/img_11.png)
 
 For our purposes, the two most important bits (or "flags") of the processor status register are the Z ("zero") and C 
 ("carry") bits. The zero flag is set (1) if the result of the last operation was zero. The zero flag is cleared (0) 

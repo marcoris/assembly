@@ -1,4 +1,4 @@
-[< Back](README.md)
+[< Back](../README.md)
 
 # Sprite Graphics
 ## Sprite Data
@@ -31,7 +31,7 @@ can move smoothly every frame.
 To use this high-speed copying, the CPU needs to have all of the sprite data ready to go in a contiguous **page** of memory.
 (A page is a block of 256 bytes.) Generally, this "sprite buffer" is placed in CPU memory addresses `$0200 - $02ff`.
 
-![img_6.png](img_6.png)
+![img_6.png](../assets/img_6.png)
 
 A common CPU memory layout for the NES. While it is possible to change where in memory some items like the stack or 
 sprite buffer are located, this is the most common arrangement.
@@ -139,12 +139,12 @@ CHR-ROM chip in a cartridge holds two pattern tables, one for sprites and one fo
 create our own pattern tables to display sprites on screen. This is where NES Lightbox comes in handy.
 
 ## Using NES Lightbox
-![img_7.png](img_7.png)
+![img_7.png](../assets/img_7.png)
 The main screen of NES Lightbox.
 
 The right half of the interface is broadly divided into pattern tables ("Tileset") and palettes.
 
-![img_8.png](img_8.png)
+![img_8.png](../assets/img_8.png)
 
 Within the "Tileset" area, the main element is a display of a pattern table. Just below the pattern table display 
 are toggle switches for "Bank A / Bank B". As mentioned before, generally one pattern table is used for sprites, 
@@ -152,7 +152,7 @@ and the other is used for backgrounds. The A/B switch lets you flip between the 
 a "Grid" button, which will turn on and off a grid showing the boundaries of each tile in the pattern table. The 
 "Edit" button will open a separate tile editor window once you select a tile in the tileset display.
 
-![img_9.png](img_9.png)
+![img_9.png](../assets/img_9.png)
 
 The "Palettes" area lets you preview how different palette choices will affect your tiles. There are four numbered 
 palettes. Clicking any color will change the display of the sprites in the pattern table to the palette that color
@@ -167,7 +167,7 @@ value the NES uses for that color, to use in your code.
 Open `graphics.chr` in **NES Lightbox**. To edit or create tiles, click on the space in the pattern table display for the
 tile you wish to alter, then click the "Edit" button. This will open a separate tile-editing window.
 
-![img_10.png](img_10.png)
+![img_10.png](../assets/img_10.png)
 
 > Note that clicking on different palettes in the main window changes all displayed colors to the colors from that 
 > palette. This is extremely useful for testing out what your tiles will look like in the palettes used by your game.

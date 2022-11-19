@@ -1,9 +1,9 @@
-[< Back](README.md)
+[< Back](../README.md)
 
 ## Palettes
 The NES uses a fixed set of 64 colors for all of its graphics.
 
-![img.png](img.png)
+![img.png](../assets/img.png)
 
 These colors are used to fill slots in eight four-color palettes. Four palettes are used to draw background objects, and
 the other four palettes are used to draw sprites, objects in the "foreground". Each thing drawn to the screen uses one
@@ -25,7 +25,7 @@ Each tile takes up 16 bytes of memory, so the CHR-ROM chip's 8KB of storage is j
 the two pattern tables. By specifying only a palette index rather than an actual color, the tiles themselves take up 
 less memory and can be re-used with different palettes as needed.
 
-![img_1.png](img_1.png)
+![img_1.png](../assets/img_1.png)
 
 An example pattern table tile. Bytes `$xxx0 - $xxx7` provide the "low bit" for each pixel, and bytes `$xxx8 - $xxxf` 
 provide the "high bit" for each pixel.
@@ -50,7 +50,7 @@ stores the tile number of one of the 256 tiles in the background pattern table. 
 nametables arranged in a square pattern, meaning that, in theory, you could set up four TV screens worth of background
 at once.
 
-![img_2.png](img_2.png)
+![img_2.png](../assets/img_2.png)
 
 I say in theory because the Famicom was designed to be cheap. As a compromise, the Famicom/NES has enough physical 
 memory for two nametables. These are "real" nametables that behave as expected. The memory ranges for the other two 
@@ -59,7 +59,7 @@ from the corresponding real nametable. The developer can configure which two nam
 "mirrored". On a hardware NES cartridge, this is done with a pad of solder over one of two contacts on the cartridge 
 board. For emulators, a game's mirroring setting is part of its iNES header.
 
-![img_3.png](img_3.png)
+![img_3.png](../assets/img_3.png)
 
 The red rectangle shows the "V"/"H" contacts; whichever pair of contacts is soldered together will determine whether 
 the game uses vertical or horizontal mirroring.
@@ -86,12 +86,12 @@ four-by-four area, bits 2-3 the top right, bits 4-5 cover the bottom left and bi
 right. This means that in addition to background tiles being fixed to a grid, color information is tied to its own grid
 as well.
 
-![img_4.png](img_4.png)
+![img_4.png](../assets/img_4.png)
 
 As a consequence of attribute table limitations, background objects are generally drawn in 2x2 tile units. We call 
 these larger objects metatiles.
 
-![img_5.png](img_5.png)
+![img_5.png](../assets/img_5.png)
 
 > The question mark (?) block from Super Mario Bros., an example of a metatile.
 

@@ -1,4 +1,4 @@
-[< Back](README.md)
+[< Back](../README.md)
 
 ## Indexed Mode
 Indexed mode combines a fixed, absolute memory address with the variable contents of an index register (hence the name 

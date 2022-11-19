@@ -4,12 +4,12 @@ games from [famicom.party](https://famicom.party/).
 
 # Table of Contents
 1. [Constants and labels](#constants-and-labels)
-2. [Header interrupt vectors](header_interruptvectors.md)
-3. [Refactoring](refactoring.md)
-4. [The Picture Processing Unit (PPU)](ppu.md)
-5. [Sprite Graphics](spritegraphics.md)
-6. [Branching](branching.md)
-7. [Loops](loops.md)
+2. [Header interrupt vectors](pages/header_interruptvectors.md)
+3. [Refactoring](pages/refactoring.md)
+4. [The Picture Processing Unit (PPU)](pages/ppu.md)
+5. [Sprite Graphics](pages/spritegraphics.md)
+6. [Branching](pages/branching.md)
+7. [Loops](pages/loops.md)
 
 ## Constants and labels
 When the assembler (ca65) is run, it will replace the name of the constant (e.g. PPUSTATUS) with its value (e.g. $2002).
@@ -157,4 +157,4 @@ Here is what options we are setting, bit-by-bit:
 
 The NES color palette
 
-![img.png](img.png)
+![img.png](assets/img.png)

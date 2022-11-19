@@ -1,4 +1,4 @@
-[< Back](README.md)
+[< Back](../README.md)
 
 ## Interrupt Vectors
 The events that can cause these interruptions are called interrupt vectors, and the NES/6502 has three of them:
