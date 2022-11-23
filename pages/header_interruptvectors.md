@@ -10,7 +10,7 @@ When an interrupt is triggered, the processor stops whatever it is doing and exe
 for that interrupt. A handler is just a collection of assembly code that ends with a new opcode: RTI, for "Return from
 Interrupt". Since the test project doesn't need to make use of NMI or IRQ handlers, they consist of just RTI:
 
-````asm
+````6502 assembly
 .proc irq_handler
     RTI
 .endproc
@@ -35,7 +35,7 @@ Because these six bytes of memory are so important, ca65 has a specific segment 
 most common way to use this segment is to give it a list of three labels, which ca65 will convert to addresses when 
 assembling your code. Here is what our test project's "VECTORS" segment looks like:
 
-````asm
+````6502 assembly
 .segment "VECTORS"
 .addr nmi_handler, reset_handler, irq_handler
 ````
@@ -50,7 +50,7 @@ While the test project doesn't make use of the NMI or IRQ events, it does need a
 is to set up the system when it is first turned on, and to put it back to that just-turned-on state when the user hits 
 the reset button. Here is the test project's reset handler:
 
-````asm
+````6502 assembly
 .proc reset_handler
     SEI
     CLD

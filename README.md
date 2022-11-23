@@ -35,7 +35,7 @@ The "LD" commands load data into a register. As a reminder, the 6502 has three r
 which can do math, and "X" and "Y", the "index registers". LDA loads data into the accumulator, LDX loads data into the X
 register, and LDY loads data into the Y register.
 
-````asm
+````6502 assembly
 LDA $3f00   ; load contents of memory address $3f00
             ; into the accumulator
 LDA #$3f    ; load the value $3f into the accumulator
@@ -54,7 +54,7 @@ register to register" - TAX, for example, is "transfer from accumulator to X reg
 is more accurately described as a "copy", since after one of these instructions, both registers will have the value of the
 first register.
 
-````asm
+````6502 assembly
 LDA #$a7
 TAY
 STY $3f00
@@ -75,7 +75,7 @@ $2006 lets your code select an address in PPU memory, and $2007 lets your code w
 the address you want to write to, store two bytes of data to $2006 - first the "high" (left) byte, followed by the "low" 
 (right) byte.
 
-````asm
+````6502 assembly
 LDX #$3f
 STX $2006
 LDX #$00
@@ -87,7 +87,7 @@ following writes to PPU memory to $3f00, which is the address of the first color
 
 To store data at the selected PPU memory address, store a byte to $2007:
 
-````asm
+````6502 assembly
 LDA #$29
 STA $2007
 ````
@@ -104,7 +104,7 @@ PPUADDR. It takes two writes to PPUADDR to fully specify a memory address, and i
 one write but never get around to doing the second write. Reading from PPUSTATUS makes it so that the next write to PPUADDR 
 will always be considered a "high" byte of an address.
 
-````asm
+````6502 assembly
 LDX $2002
 LDX #$3f
 STX $2006
@@ -138,7 +138,7 @@ allow your code to "emphasize" certain colors - making one of red, green, or blu
 colors darker. Using one of the emphasis bits essentially applies a color tint to the screen. Using all three at the 
 same time makes the entire screen darker, which many games use as a way to create a transition from one area to another.
 
-````asm
+````6502 assembly
 LDA #%00011110
 STA $2001
 ````

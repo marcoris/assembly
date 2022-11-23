@@ -54,7 +54,7 @@ Now that you know about the processor status register, we can use the results of
 of our code. The simplest way to use branching is to build a loop that does something 256 times. In its most basic form,
 it looks like this:
 
-````asm
+````6502 assembly
 LDX #$00
 LoopStart:
     ; do something
@@ -108,7 +108,7 @@ if the branching opcode's conditions are met.
 ## Another Branching Example
 This time, our loop will run eight times instead of 256.
 
-````asm
+````6502 assembly
 LDY #$08
 LoopTwo:
     ; do something
@@ -140,7 +140,7 @@ comparing it to:
 We can use this information to create more complicated program logic. Consider the case where we load a value from 
 memory and then check whether it is greater than, equal to, or less than ``$80``.
 
-````asm
+````6502 assembly
 LDA $06
     CMP #$80
     BEQ reg_was_80
@@ -166,7 +166,7 @@ earlier code can ``JMP`` over branch-specific code that shouldn't be executed if
 ## Using Comparisons in Loops
 Here is a loop that runs eight times, but counts up from zero instead of counting down from eight.
 
-````asm
+````6502 assembly
 LDX #$00
 loop_start:
     ; do something

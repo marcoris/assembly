@@ -97,22 +97,22 @@ far too short to do meaningful work, it is common practice to perform most graph
 Vblank, i.e. as part of the NMI handler. Currently, the NMI handler in the test project looks like 
 this:
 
-````asm
+````6502 assembly
 .proc nmi_handler
-  RTI
+    RTI
 .endproc
 ````
 
 RTI, as discussed previously, is the opcode for Return from Interrupt. Let's update the NMI handler to copy the memory
 from `$0200 - $02ff` into OAM each time it runs:
 
-````asm
+````6502 assembly
 .proc nmi_handler
-  LDA #$00
-  STA OAMADDR
-  LDA #$02
-  STA OAMDMA
-  RTI
+    LDA #$00
+    STA OAMADDR
+    LDA #$02
+    STA OAMDMA
+    RTI
 .endproc
 ````
 
@@ -181,7 +181,7 @@ make large-scale edits. Once you have created a set of tiles to work with, save 
 In order to display our tiles in a game, we first need to make sure we load the .chr file that contains them. Change 
 the .segment "CHR" section to this:
 
-````asm
+````6502 assembly
 .segment "CHR"
 .incbin "graphics.chr"
 ````
@@ -194,7 +194,7 @@ free to use your own tiles instead.
 Next, we will need to fill out an entire palette, instead of just setting the first palette color 
 to green ($29). We'll extend .proc main as follows:
 
-````asm
+````6502 assembly
 .proc main
     ; write a palette
     LDX PPUSTATUS
@@ -220,7 +220,7 @@ Next, we need to store the data for our sprites. We are going to start by drawin
 of the spaceship. As discussed earlier, we will store all our sprite information in memory between $0200-$02ff, and
 copy it to the PPU using DMA transfer (in our NMI handler).
 
-````asm
+````6502 assembly
 ...
     ; write sprite data
     LDA #$70
@@ -238,7 +238,7 @@ Finally, we need to make one more change to `.proc main`. We turn on the screen 
 now that we are using the NMI handler, we need to tell the CPU to generate NMI events. We can do that by writing 
 to PPUCTRL, like this:
 
-````asm
+````6502 assembly
 vblankwait:       ; wait for another vblank before continuing
     BIT PPUSTATUS
     BPL vblankwait

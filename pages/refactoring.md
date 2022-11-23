@@ -15,7 +15,7 @@ talking with the PPU. It's hard to tell what these numbers are referring to when
 ## Constants File
 We'll call the constants file `constants.inc`. Then, we include the constants file at the top of our .asm file like this:
 
-````asm
+````6502 assembly
 .include "constants.inc"
 ````
 
@@ -23,7 +23,7 @@ We'll call the constants file `constants.inc`. Then, we include the constants fi
 We can do the same thing with the .header segment, since it will generally be the same from project to project. Let's 
 make a `header.inc` file to hold our header content.
 
-````asm
+````6502 assembly
 .segment "HEADER"
 .byte $4e, $45, $53, $1a ; Magic string that always begins an iNES header
 .byte $02        ; Number of 16KB PRG-ROM banks
@@ -42,7 +42,7 @@ assembler that a certain proc should be available in other files, and the .impor
 else.
 `reset.asm` including the .export directive:
 
-````asm
+````6502 assembly
 .include "constants.inc"
 
 .segment "CODE"

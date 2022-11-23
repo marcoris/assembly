@@ -4,7 +4,7 @@
 Indexed mode combines a fixed, absolute memory address with the variable contents of an index register (hence the name 
 "index register"). To use indexed addressing mode, write a memory address, a comma, and then a register name.
 
-````asm
+````6502 assembly
 LDA $8000,X
 ````
 
@@ -15,8 +15,8 @@ current value of the X register is ``$05``, then the command ``LDA $8000,X`` wil
 Using indexed mode allows us to perform actions across a range of memory addresses with ease. As a simple example, here 
 is a code snippet that will set the 256 bytes of memory from ``$3000`` to ``$30FF`` to ``$00``.
 
-````asm
-LDA #$00
+````6502 assembly
+    LDA #$00
     TAX
 clear_zeropage:
     STA $3000,X
@@ -39,7 +39,7 @@ the PPU, making it easier to update the data without inadvertently breaking thin
 
 Old code:
 
-````asm
+````6502 assembly
 ...
     ; write a palette
     LDX PPUSTATUS
@@ -61,7 +61,7 @@ Old code:
 Let's separate out the palette values and store them somewhere else. The palette values here are read-only data, so we 
 will store them in the ``RODATA`` segment and not in the current CODE segment. It will look something like this:
 
-````asm
+````6502 assembly
 .segment "RODATA"
 palettes:
 .byte $29, $19, $09, $0f
@@ -75,7 +75,7 @@ that set the PPU address to ``$3f00``, but starting at line 27, we'll make use o
 
 New code:
 
-````asm
+````6502 assembly
 ...
 load_palettes:
     LDA palettes,x
@@ -100,7 +100,7 @@ this:
 
 Old code:
 
-````asm
+````6502 assembly
 ...
     ; write sprite data
     LDA #$70
@@ -116,7 +116,7 @@ Old code:
 
 Following the same process as with the sprites, our new sprite loading code will look like this:
 
-````asm
+````6502 assembly
 ...
     ; write sprite data
     LDX #$00
@@ -135,7 +135,7 @@ This code is subtly different from the palette loading code. Note that on line 4
 One more step: we still need to move our sprite data into ``RODATA``. Here is our sprite data, in a much more readable, 
 one-line-per-sprite format:
 
-````asm
+````6502 assembly
 sprites:
 .byte $70, $05, $00, $80
 ````
