@@ -154,14 +154,14 @@ load_sprites:
 	STA PPUADDR
 	STX PPUDATA
 
-		; bullet
-		LDA PPUSTATUS
-		LDA #$21
-		STA PPUADDR
-		LDA #$0f
-		STA PPUADDR
-		LDX #$30
-		STX PPUDATA
+    ; bullet
+    LDA PPUSTATUS
+    LDA #$21
+    STA PPUADDR
+    LDA #$0f
+    STA PPUADDR
+    LDX #$30
+    STX PPUDATA
 
     ; finally, attribute table
     LDA PPUSTATUS
@@ -180,13 +180,13 @@ load_sprites:
 	LDA #%00001100
 	STA PPUDATA
 
-		LDA PPUSTATUS
-		LDA #$23
-		STA PPUADDR
-		LDA #$d3
-		STA PPUADDR
-		LDA #%00001100
-		STA PPUDATA
+    LDA PPUSTATUS
+    LDA #$23
+    STA PPUADDR
+    LDA #$d3
+    STA PPUADDR
+    LDA #%00001100
+    STA PPUDATA
 
 vblankwait:         ; wait for another vblank before continuing
     BIT PPUSTATUS
