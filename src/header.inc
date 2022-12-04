@@ -1,5 +1,5 @@
 .segment "HEADER"
-.byte "NES"                 ; Magic string that always begins an iNES header
+.byte "NES"                 ; NES header
 .byte $1a                   ; Magic number that always begins an iNES header
 .byte $02                   ; Number of 16KB PRG-ROM banks
 .byte $01                   ; Number of 8KB CHR-ROM banks
