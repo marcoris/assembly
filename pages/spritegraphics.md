@@ -101,6 +101,7 @@ this:
 .proc nmi_handler
     RTI
 .endproc
+
 ````
 
 RTI, as discussed previously, is the opcode for Return from Interrupt. Let's update the NMI handler to copy the memory
@@ -114,6 +115,7 @@ from `$0200 - $02ff` into OAM each time it runs:
     STA OAMDMA
     RTI
 .endproc
+
 ````
 
 On line 2, we load the literal value zero into the accumulator. On line 3, we store (write) this zero to the OAMADDR
@@ -184,6 +186,7 @@ the .segment "CHR" section to this:
 ````6502 assembly
 .segment "CHR"
 .incbin "graphics.chr"
+
 ````
 
 .incbin, as you might expect, is a new assembler directive that instructs ca65 to include raw binary
@@ -211,6 +214,7 @@ to green ($29). We'll extend .proc main as follows:
     LDA #$0f
     STA PPUDATA
 .endproc
+
 ````
 
 > Notice that we only have to set an address with PPUADDR once; each time we write to PPUDATA, the PPU memory address 
@@ -221,7 +225,7 @@ of the spaceship. As discussed earlier, we will store all our sprite information
 copy it to the PPU using DMA transfer (in our NMI handler).
 
 ````6502 assembly
-...
+
     ; write sprite data
     LDA #$70
     STA $0200 ; Y-coord of first sprite
@@ -231,7 +235,7 @@ copy it to the PPU using DMA transfer (in our NMI handler).
     STA $0202 ; attributes of first sprite
     LDA #$80
     STA $0203 ; X-coord of first sprite
-...
+
 ````
 
 Finally, we need to make one more change to `.proc main`. We turn on the screen by writing to PPUMASK. However, 
@@ -247,6 +251,7 @@ vblankwait:       ; wait for another vblank before continuing
     STA PPUCTRL
     LDA #%00011110  ; turn on screen
     STA PPUMASK
+    
 ````
 
 At this point, our code will draw a single sprite (the top-left of the spaceship) to the screen, at X $80 and Y $70
@@ -256,3 +261,30 @@ PPU memory once per frame by our NMI handler.
 While this works, our code is very inefficient. To draw all 64 
 sprites this way, we would need 128 lines of code. To make our sprite code more manageable, we will store the 
 sprite data separately from the code that writes it to memory, and use a loop to iterate over the data.
+
+Sprites example:
+````6502 assembly
+sprites:
+;76543210
+;||||||||
+;||||||++- Palette (4 to 7) of sprite
+;|||+++--- Unimplemented (read 0)
+;||+------ Priority (0: in front of background; 1: behind background)
+;|+------- Flip sprite horizontally
+;+-------- Flip sprite vertically
+
+; y position, tile, attribute, x position
+
+; Spaceship 2x2 sprites
+.byte $70, $05, %00000011, $80  ; use color palette 3
+.byte $70, $05, %01000000, $88  ; flip horizontal sprite nr 05 and use color palette 0
+.byte $78, $07, %00000010, $80  ; use color palette 2
+.byte $78, $07, %01000001, $88  ; flip horizontal sprite nr 07 and use color palette 1
+
+; Ball 2x2 sprites with 1 origin and 3 flipped parts
+.byte $14, $04, %00000000, $50	; use color palette 0
+.byte $14, $04, %01100001, $58	; flip horizontal sprite, set behind star in background and use color palette 1
+.byte $1c, $04, %10000010, $50	; flip vertical and color palette 2
+.byte $1c, $04, %11000011, $58	; flip vertical and flip horizontal and color palette 3
+
+````

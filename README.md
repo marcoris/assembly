@@ -39,6 +39,7 @@ register, and LDY loads data into the Y register.
 LDA $3f00   ; load contents of memory address $3f00
             ; into the accumulator
 LDA #$3f    ; load the value $3f into the accumulator
+
 ````
 
 ### Storing data: STA, STX, STY
@@ -58,6 +59,7 @@ first register.
 LDA #$a7
 TAY
 STY $3f00
+
 ````
 
 ## Memory-Mapped I/O
@@ -80,6 +82,7 @@ LDX #$3f
 STX $2006
 LDX #$00
 STX $2006
+
 ````
 
 This code first stores the byte $3f to $2006, then the byte $00 to $2006 - in other words, it sets the address for any 
@@ -90,6 +93,7 @@ To store data at the selected PPU memory address, store a byte to $2007:
 ````6502 assembly
 LDA #$29
 STA $2007
+
 ````
 
 This writes the byte $29 (which represents "green") to the memory address we selected before ($3f00). Each time you store
@@ -112,6 +116,7 @@ LDX #$00
 STX $2006
 LDA #$29
 STA $2007
+
 ````
 
 ## $2001: PPUMASK
@@ -141,6 +146,7 @@ same time makes the entire screen darker, which many games use as a way to creat
 ````6502 assembly
 LDA #%00011110
 STA $2001
+
 ````
 
 Here is what options we are setting, bit-by-bit:

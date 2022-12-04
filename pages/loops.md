@@ -6,6 +6,7 @@ Indexed mode combines a fixed, absolute memory address with the variable content
 
 ````6502 assembly
 LDA $8000,X
+
 ````
 
 The example code above will fetch the contents of memory address (``$8000`` + the value of the X register). If the 
@@ -22,6 +23,7 @@ clear_zeropage:
     STA $3000,X
     INX
     BNE clear_zeropage
+    
 ````
 
 To review, line 1 above sets the accumulator to zero (``#$00``), and then line 2 copies that zero to the X register. 
@@ -40,7 +42,6 @@ the PPU, making it easier to update the data without inadvertently breaking thin
 Old code:
 
 ````6502 assembly
-...
     ; write a palette
     LDX PPUSTATUS
     LDX #$3f
@@ -55,7 +56,7 @@ Old code:
     STA PPUDATA
     LDA #$0f
     STA PPUDATA
-...
+
 ````
 
 Let's separate out the palette values and store them somewhere else. The palette values here are read-only data, so we 
@@ -65,6 +66,7 @@ will store them in the ``RODATA`` segment and not in the current CODE segment. I
 .segment "RODATA"
 palettes:
 .byte $29, $19, $09, $0f
+
 ````
 
 We set a label (``palettes``) to easily identify the start of our palette data, and then we use the ``.byte`` directive 
@@ -76,14 +78,14 @@ that set the PPU address to ``$3f00``, but starting at line 27, we'll make use o
 New code:
 
 ````6502 assembly
-...
+
 load_palettes:
     LDA palettes,x
     STA PPUDATA
     INX
     CPX #$04
     BNE load_palettes
-...
+
 ````
 
 Instead of hard-coding each palette value, we load it as "the address of the ``palettes`` label plus the value of the X 
@@ -101,7 +103,7 @@ this:
 Old code:
 
 ````6502 assembly
-...
+
     ; write sprite data
     LDA #$70
     STA $0200
@@ -111,13 +113,13 @@ Old code:
     STA $0202
     LDA #$80
     STA $0203
-...
+
 ````
 
 Following the same process as with the sprites, our new sprite loading code will look like this:
 
 ````6502 assembly
-...
+
     ; write sprite data
     LDX #$00
 load_sprites:
@@ -126,7 +128,7 @@ load_sprites:
     INX
     CPX #$04
     BNE load_sprites
-...
+
 ````
 
 This code is subtly different from the palette loading code. Note that on line 40, instead of writing to a fixed address
@@ -138,4 +140,5 @@ one-line-per-sprite format:
 ````6502 assembly
 sprites:
 .byte $70, $05, $00, $80
+
 ````

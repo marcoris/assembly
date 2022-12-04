@@ -17,6 +17,7 @@ We'll call the constants file `constants.inc`. Then, we include the constants fi
 
 ````6502 assembly
 .include "constants.inc"
+
 ````
 
 ## Header File
@@ -32,6 +33,7 @@ make a `header.inc` file to hold our header content.
 .byte %00000000  ; No special-case flags set, no mapper
 .byte $00        ; No PRG-RAM present
 .byte $00        ; NTSC format
+
 ````
 
 ## ca65 Imports and Exports
@@ -59,6 +61,7 @@ vblankwait:
     BPL vblankwait
     JMP main
 .endproc
+
 ````
 
 ## Custom Linker Configuration
@@ -94,11 +97,17 @@ SEGMENTS {
 ```
 root
     |
+    |-- compile.sh
     |-- nes.cfg
     |-- src
         |
+        |-- background.pal
         |-- constants.inc
+        |-- foreground.pal
+        |-- graphics.chr
         |-- header.inc
-        |-- helloworld.asm
+        |-- main.asm
+        |-- main.nesproj
         |-- reset.asm
+        |-- space.nam
 ```

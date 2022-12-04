@@ -18,6 +18,7 @@ Interrupt". Since the test project doesn't need to make use of NMI or IRQ handle
 .proc nmi_handler
     RTI
 .endproc
+
 ````
 RTI marks the end of an interrupt handler, but how does the processor know where the handler for a given interrupt begins?
 
@@ -38,6 +39,7 @@ assembling your code. Here is what our test project's "VECTORS" segment looks li
 ````6502 assembly
 .segment "VECTORS"
 .addr nmi_handler, reset_handler, irq_handler
+
 ````
 
 .addr is a new assembler directive. Given a label, it outputs the memory address that corresponds to that label. So, 
@@ -62,6 +64,7 @@ vblankwait:
     BPL vblankwait
     JMP main
 .endproc
+
 ````
 
 A few things to note about this section of code. **First**, unlike the other interrupt handlers, it does not end in RTI - 
@@ -87,3 +90,25 @@ The PPU takes about 30,000 CPU cycles to become stable from first powering on, s
 status from PPUSTATUS ($2002) until it reports that it is ready. NES' 2A03 processor runs at 1.78 MHz, so 30,000 cycles 
 is a tiny, tiny fraction of a second.
 
+Turning on screen:
+````6502 assembly
+; wait for another vblank before continuing
+vblankwait:
+    BIT PPUSTATUS
+    BPL vblankwait
+
+    LDA #%10010000  ; turn on NMIs, sprites use first pattern table
+    STA PPUCTRL
+    ;76543210
+    ;|||||||+- Greyscale enable (0: normal color, 1: greyscale)
+    ;||||||+-- Left edge (8px) background enable (0: hide, 1: show)
+    ;|||||+--- Left edge (8px) foreground enable (0: hide, 1: show)
+    ;||||+---- Background enable
+    ;|||+----- Foreground enable
+    ;||+------ Emphasize red
+    ;|+------- Emphasize green
+    ;+-------- Emphasize blue
+    LDA #%00011110  ; turn on screen
+    STA PPUMASK
+    
+````

@@ -55,6 +55,7 @@ to the nametable:
     STA PPUADDR
     LDX #$2f
     STX PPUDATA
+    
 ````
 
 The one thing we can do to save on the number of commands we need to enter is to store the tile number in a different 
@@ -94,7 +95,6 @@ first palette, we would write the byte ``%01000000`` to the appropriate PPU memo
 that would look like:
 
 ````6502 assembly
-...
     ; finally, attribute table
     LDA PPUSTATUS
     LDA #$23
@@ -103,7 +103,7 @@ that would look like:
     STA PPUADDR
     LDA #%01000000
     STA PPUDATA
-...
+
 ````
 
 Remember that this will set all tiles in that 2x2 region to use the second palette. In this case, the background tiles 
@@ -127,6 +127,7 @@ palettes:
 .byte $0f, $19, $09, $29
 .byte $0f, $19, $09, $29
 .byte $0f, $19, $09, $29
+
 ````
 
 The first four palettes are background palettes, and the second set of four palettes are sprite palettes. Note that I 
@@ -136,3 +137,20 @@ Since we now need to write more than just four palette bytes, I've changed the l
 ``CPX #$20`` (16 values) instead of ``CPX #$04``.
 
 ![img_16.png](../assets/img_16.png)
+
+Palettes example:
+````6502 assembly
+color_palettes:             ; the 8 color palettes for background and sprites
+; Background color palettes
+.byte $0d, $12, $23, $27	; 0
+.byte $0d, $2b, $3c, $39	; 1
+.byte $0d, $0c, $07, $13	; 2
+.byte $0d, $16, $27, $37	; 3
+
+; Sprite color palettes
+.byte $0d, $2d, $10, $15	; 0 (4)
+.byte $0d, $19, $09, $29	; 1 (5)
+.byte $0d, $19, $07, $13	; 2 (6)
+.byte $0d, $15, $16, $27	; 3 (7)
+
+````
