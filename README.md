@@ -11,6 +11,7 @@ games from [famicom.party](https://famicom.party/).
 6. [Branching](pages/branching.md)
 7. [Loops](pages/loops.md)
 8. [Background](pages/background.md)
+9. [Sprite movement](pages/spritemovement.md)
 
 ## Constants and labels
 When the assembler (ca65) is run, it will replace the name of the constant (e.g. PPUSTATUS) with its value (e.g. $2002).
