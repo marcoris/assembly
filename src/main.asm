@@ -5,6 +5,8 @@
 player_x: .res 1
 player_y: .res 1
 player_dir: .res 1
+scroll: .res 1
+ppuctrl_settings: .res 1
 .exportzp player_x, player_y
 
 .segment "CODE"
@@ -31,6 +33,9 @@ player_dir: .res 1
 
 .export main
 .proc main
+    LDA #239   ; Y is only 240 lines tall!
+    STA scroll
+
     ; write color palettes from 3f00 to 3f20
     LDX PPUSTATUS
     LDX #$3f
@@ -254,6 +259,7 @@ vblankwait:
     BPL vblankwait
 
     LDA #%10010000  ; turn on NMIs, sprites use first pattern table
+    STA ppuctrl_settings
     STA PPUCTRL
     ;76543210
     ;|||||||+- Greyscale enable (0: normal color, 1: greyscale)
